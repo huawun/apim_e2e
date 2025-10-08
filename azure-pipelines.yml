@@ -1,0 +1,50 @@
+trigger:
+- main
+
+variables:
+  azureServiceConnection: 'azure-service-connection'
+  containerRegistry: '$(CONTAINER_REGISTRY_NAME).azurecr.io'
+  imageRepository: '$(APP_NAME)'
+  dockerfilePath: 'src/Dockerfile'
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build and push
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build and push image
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(azureServiceConnection)
+        tags: |
+          $(tag)
+          latest
+
+- stage: Deploy
+  displayName: Deploy
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: ubuntu-latest
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebAppContainer@1
+            displayName: Deploy to App Service
+            inputs:
+              azureSubscription: $(azureServiceConnection)
+              appName: $(APP_NAME)
+              resourceGroupName: $(RESOURCE_GROUP_NAME)
+              containers: $(containerRegistry)/$(imageRepository):$(tag)

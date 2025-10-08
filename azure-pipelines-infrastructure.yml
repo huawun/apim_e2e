@@ -1,0 +1,80 @@
+trigger: none
+
+variables:
+  azureServiceConnection: 'azure-service-connection'
+  terraformVersion: '1.6.0'
+
+stages:
+- stage: Plan
+  displayName: Terraform Plan
+  jobs:
+  - job: Plan
+    displayName: Plan
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: TerraformInstaller@0
+      displayName: Install Terraform
+      inputs:
+        terraformVersion: $(terraformVersion)
+    
+    - task: TerraformTaskV4@4
+      displayName: Terraform Init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: 'terraform'
+        backendServiceArm: $(azureServiceConnection)
+        backendAzureRmResourceGroupName: '$(RESOURCE_GROUP_NAME)'
+        backendAzureRmStorageAccountName: 'terraform$(Build.BuildId)'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'terraform.tfstate'
+    
+    - task: TerraformTaskV4@4
+      displayName: Terraform Plan
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: 'terraform'
+        environmentServiceNameAzureRM: $(azureServiceConnection)
+        commandOptions: '-var="resource_group_name=$(RESOURCE_GROUP_NAME)" -var="location=$(LOCATION)" -var="app_name=$(APP_NAME)" -var="container_registry_name=$(CONTAINER_REGISTRY_NAME)" -var="key_vault_name=$(KEY_VAULT_NAME)"'
+
+- stage: Apply
+  displayName: Terraform Apply
+  dependsOn: Plan
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: Apply
+    displayName: Apply
+    pool:
+      vmImage: ubuntu-latest
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: TerraformInstaller@0
+            displayName: Install Terraform
+            inputs:
+              terraformVersion: $(terraformVersion)
+          
+          - task: TerraformTaskV4@4
+            displayName: Terraform Init
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              workingDirectory: 'terraform'
+              backendServiceArm: $(azureServiceConnection)
+              backendAzureRmResourceGroupName: '$(RESOURCE_GROUP_NAME)'
+              backendAzureRmStorageAccountName: 'terraform$(Build.BuildId)'
+              backendAzureRmContainerName: 'tfstate'
+              backendAzureRmKey: 'terraform.tfstate'
+          
+          - task: TerraformTaskV4@4
+            displayName: Terraform Apply
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              workingDirectory: 'terraform'
+              environmentServiceNameAzureRM: $(azureServiceConnection)
+              commandOptions: '-var="resource_group_name=$(RESOURCE_GROUP_NAME)" -var="location=$(LOCATION)" -var="app_name=$(APP_NAME)" -var="container_registry_name=$(CONTAINER_REGISTRY_NAME)" -var="key_vault_name=$(KEY_VAULT_NAME)"'

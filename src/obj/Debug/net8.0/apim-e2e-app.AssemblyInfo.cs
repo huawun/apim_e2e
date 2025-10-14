@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("apim-e2e-app")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b72d1c95d2906c71cbda952921fc2a55383db5e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f1e92f283929c4f298dbcf2812e6da121c341ba7")]
 [assembly: System.Reflection.AssemblyProductAttribute("apim-e2e-app")]
 [assembly: System.Reflection.AssemblyTitleAttribute("apim-e2e-app")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

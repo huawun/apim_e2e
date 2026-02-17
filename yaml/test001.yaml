@@ -1,105 +1,121 @@
-openapi: 3.0.1
-info:
-  title: i-service
-  description: ''
-  version: '1.0'
-servers:
-  - url: https://mp-apim-002.azure-api.net
-paths:
-  '/iCane/BusinessPartner/{authCode}/GetBPbyZone/{comCode}/{year}/{zoneCode}':
-    get:
-      summary: get bp by id zone
-      operationId: get-bp-by-id-zone
-      parameters:
-        - name: authCode
-          in: path
-          required: true
-          schema:
-            type: ''
-        - name: comCode
-          in: path
-          required: true
-          schema:
-            type: ''
-        - name: year
-          in: path
-          required: true
-          schema:
-            type: ''
-        - name: zoneCode
-          in: path
-          required: true
-          schema:
-            type: ''
-      responses:
-        '200':
-          description: ''
-  '/iCane/plookmitr/{authCode}/bp/all/{id}':
-    get:
-      summary: get bp by id card for plookmitr
-      operationId: get-bp-by-id-card-for-plookmitr
-      parameters:
-        - name: authCode
-          in: path
-          required: true
-          schema:
-            type: ''
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: ''
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json: { }
-  /iservice/bp:
-    get:
-      summary: Business Partner by card id
-      operationId: business-partner-by-card-id
-      parameters:
-        - name: id
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: i-service-api
+  title: i-Service API
+  description: i-Service Business Partner API from test001
+  tags:
+    - mitr-phol
+    - iservice
+    - api
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: user:huawun
+  system: sugar-production
+  definition: |
+    openapi: 3.0.1
+    info:
+      title: i-service
+      description: ''
+      version: '1.0'
+    servers:
+      - url: https://mp-apim-002.azure-api.net
+    paths:
+      '/iCane/BusinessPartner/{authCode}/GetBPbyZone/{comCode}/{year}/{zoneCode}':
+        get:
+          summary: get bp by id zone
+          operationId: get-bp-by-id-zone
+          parameters:
+            - name: authCode
+              in: path
+              required: true
+              schema:
+                type: ''
+            - name: comCode
+              in: path
+              required: true
+              schema:
+                type: ''
+            - name: year
+              in: path
+              required: true
+              schema:
+                type: ''
+            - name: zoneCode
+              in: path
+              required: true
+              schema:
+                type: ''
+          responses:
+            '200':
+              description: ''
+      '/iCane/plookmitr/{authCode}/bp/all/{id}':
+        get:
+          summary: get bp by id card for plookmitr
+          operationId: get-bp-by-id-card-for-plookmitr
+          parameters:
+            - name: authCode
+              in: path
+              required: true
+              schema:
+                type: ''
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: ''
+          responses:
+            '200':
+              description: ''
+              content:
+                application/json: { }
+      /iservice/bp:
+        get:
+          summary: Business Partner by card id
+          operationId: business-partner-by-card-id
+          parameters:
+            - name: id
+              in: query
+              schema:
+                type: ''
+            - name: authCode
+              in: query
+              schema:
+                type: ''
+          responses:
+            '200':
+              description: ''
+              content:
+                application/json: { }
+      /clone-6632f/iservice/bp:
+        get:
+          summary: Business Partner by card id (clone)
+          operationId: 6632f0c271ccddc756032490
+          parameters:
+            - name: id
+              in: query
+              schema:
+                type: ''
+            - name: authCode
+              in: query
+              schema:
+                type: ''
+          responses:
+            '200':
+              description: ''
+              content:
+                application/json: { }
+    components:
+      securitySchemes:
+        apiKeyHeader:
+          type: apiKey
+          name: Ocp-Apim-Subscription-Key
+          in: header
+        apiKeyQuery:
+          type: apiKey
+          name: subscription-key
           in: query
-          schema:
-            type: ''
-        - name: authCode
-          in: query
-          schema:
-            type: ''
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json: { }
-  /clone-6632f/iservice/bp:
-    get:
-      summary: Business Partner by card id (clone)
-      operationId: 6632f0c271ccddc756032490
-      parameters:
-        - name: id
-          in: query
-          schema:
-            type: ''
-        - name: authCode
-          in: query
-          schema:
-            type: ''
-      responses:
-        '200':
-          description: ''
-          content:
-            application/json: { }
-components:
-  securitySchemes:
-    apiKeyHeader:
-      type: apiKey
-      name: Ocp-Apim-Subscription-Key
-      in: header
-    apiKeyQuery:
-      type: apiKey
-      name: subscription-key
-      in: query
-security:
-  - apiKeyHeader: [ ]
-  - apiKeyQuery: [ ]
+    security:
+      - apiKeyHeader: [ ]
+      - apiKeyQuery: [ ]

@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: apim_e2e
+  annotations:
+    github.com/project-slug: huawun/apim_e2e
+spec:
+  type: other
+  lifecycle: unknown
+  owner: DPD

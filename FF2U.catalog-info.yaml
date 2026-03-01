@@ -3,11 +3,9 @@ kind: API
 metadata:
   name: ff2u
   description: FF2U warehouse management API for attachments, tasks, bin locations, QR codes, and break pallets.
-  annotations:
-    backstage.io/techdocs-ref: dir:.
 spec:
   type: openapi
   lifecycle: production
   owner: CNCF
   definition:
-    $text: ./FF2U.openapi.yaml
+    $text: https://raw.githubusercontent.com/backstage/backstage/master/FF2U.openapi.yaml

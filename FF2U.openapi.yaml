@@ -1,0 +1,1769 @@
+openapi: 3.0.1
+info:
+  title: FF2U
+  description: ''
+  version: '1.0'
+servers:
+  - url: https://mpazu-ffapim-uat.azure-api.net/ff2u-uat/api/v1
+paths:
+  '/app/attachment/{attachment_id}':
+    delete:
+      summary: App Attachment delete
+      description: App Attachment delete
+      operationId: attachment-delete
+      parameters:
+        - name: attachment_id
+          in: path
+          description: id attachment
+          required: true
+          schema:
+            enum:
+              - test123
+            type: string
+      responses:
+        '200':
+          description: ''
+  /app/attachment/upload:
+    post:
+      summary: App Attachment upload
+      description: App Attachment upload
+      operationId: attachment-upload
+      responses:
+        '200':
+          description: ''
+  /app/config:
+    get:
+      summary: App config
+      description: App config
+      operationId: app-config
+      responses:
+        '200':
+          description: ''
+  /auth/login:
+    post:
+      summary: Auth Login
+      description: Auth Login
+      operationId: auth-login
+      requestBody:
+        description: "{\n    \"email\": \"staff03@mail.local\",\n    \"password\": \"P@ssw0rd1234!@\"\n}"
+        content:
+          application/json:
+            example:
+              email: staff03@mail.local
+              password: P@ssw0rd1234!@
+      responses:
+        '200':
+          description: ''
+  /auth/profile:
+    get:
+      summary: Auth Profile
+      description: Auth Profile
+      operationId: auth-profile
+      responses:
+        '200':
+          description: ''
+  /bin_locations:
+    get:
+      summary: Bin Locations Get
+      description: Bin Locations Get
+      operationId: get-bin-locations
+      parameters:
+        - name: warehouse
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  /bin_locations/by_strategy:
+    post:
+      summary: Bin Locations Get by Strategy
+      description: Bin Locations Get by Strategy
+      operationId: get-bin-locations-by-strategy
+      responses:
+        '200':
+          description: ''
+  /break_pallet:
+    post:
+      summary: Break Pallet Create
+      description: Break Pallet Create
+      operationId: create-break-pallet
+      responses:
+        '200':
+          description: ''
+    get:
+      summary: Break Pallet Get
+      description: Break Pallet Get
+      operationId: get-break-pallet
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: number
+        - name: page_size
+          in: query
+          schema:
+            type: number
+        - name: sort
+          in: query
+          schema:
+            enum:
+              - createdAt
+              - '-updatedAt'
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/break_pallet/{id}':
+    get:
+      summary: Break Pallet Get detail
+      description: Break Pallet Get detail
+      operationId: get-break-pallet-detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: ''
+      responses:
+        '200':
+          description: ''
+  /qr_code/search:
+    post:
+      summary: QR Code Search
+      description: QR Code Search
+      operationId: qr-code-search
+      responses:
+        '200':
+          description: ''
+  '/task_items/{task_item_id}':
+    put:
+      summary: Task Items Update
+      description: Task Items Update
+      operationId: update-task-items
+      parameters:
+        - name: task_item_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  /tasks/active_qr/active:
+    post:
+      summary: QR Code Active
+      description: QR Code Active
+      operationId: qr-code-active
+      responses:
+        '200':
+          description: ''
+  /tasks/cancel_reasons:
+    get:
+      summary: Cancel Reasons Get
+      description: Cancel Reasons Get
+      operationId: get-cancel-reasons
+      responses:
+        '200':
+          description: ''
+  '/tasks/{id}/cancel':
+    patch:
+      summary: Task Cancel
+      description: Task Cancel
+      operationId: task-cancel
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/tasks/{id}/complete':
+    patch:
+      summary: Task Complete
+      description: Task Complete
+      operationId: complete-task
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/tasks/{task_id}/task_items':
+    get:
+      summary: Task items Get
+      description: Task items Get
+      operationId: get-task-items
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            enum:
+              - PENDING
+              - IN_PROGRESS
+              - DONE
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: number
+        - name: page_size
+          in: query
+          schema:
+            type: number
+        - name: sort
+          in: query
+          description: createdAt (Asc) -updatedAt (Desc)
+          schema:
+            enum:
+              - createdAt
+              - '-updatedAt'
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/tasks/{task_id}/task_items/{task_item_id}':
+    get:
+      summary: Task items Get Detail
+      description: Task items Get Detail
+      operationId: get-task-items-detail
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: task_item_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  /tasks:
+    get:
+      summary: Tasks Get
+      description: Tasks Get
+      operationId: get-tasks
+      parameters:
+        - name: status
+          in: query
+          schema:
+            enum:
+              - PENDING
+              - IN_PROGRESS
+              - COMPLETED
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: number
+        - name: page_size
+          in: query
+          schema:
+            type: number
+        - name: sort
+          in: query
+          description: createdAt (Asc) -updatedAt (Desc)
+          schema:
+            enum:
+              - createdAt
+              - '-updatedAt'
+            type: string
+        - name: task_type
+          in: query
+          schema:
+            enum:
+              - ACTIVATE_QR
+              - PUTAWAY
+              - PICKING
+              - TRANSFER
+              - LOADING
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/tasks/{id}':
+    get:
+      summary: Tasks Detail Get
+      description: Get Tasks Detail
+      operationId: get-tasks-detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  /tasks/active_qr/scan_qr_code:
+    post:
+      summary: Active QR Code Scan
+      description: Active QR Code Scan
+      operationId: scan-active-qr-code
+      responses:
+        '200':
+          description: ''
+  /tasks/task_items/scan_qr_code/bin_location:
+    post:
+      summary: Bin Location / Pallet Scan
+      description: Bin Location / Pallet Scan
+      operationId: scan-bin-location-pallet
+      responses:
+        '200':
+          description: ''
+  /tasks/task_items/scan_qr_code:
+    post:
+      summary: task Item Scan Pallet
+      description: task Item Scan Pallet
+      operationId: scan-pallet-task-item
+      responses:
+        '200':
+          description: ''
+  /tasks/scan_qr_then_assign:
+    post:
+      summary: Scan QR And Assign
+      description: Scan QR And Assign
+      operationId: scan-qr-and-assign
+      responses:
+        '200':
+          description: ''
+  '/tasks/{task_id}/loading_document':
+    patch:
+      summary: 'Task Loading Update '
+      description: 'Task Loading Update '
+      operationId: update-loading
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: ''
+      responses:
+        '200':
+          description: ''
+  /app/latest_version:
+    get:
+      summary: App Latest Version Get
+      description: App Latest Version Get
+      operationId: app-get-latest-version
+      responses:
+        '200':
+          description: ''
+  '/qr_code/{qr_code}/movements':
+    get:
+      summary: QR Code Movements
+      description: QR Code Movements
+      operationId: qr-code-movements
+      parameters:
+        - name: qr_code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  /products:
+    get:
+      summary: Product Get
+      description: Product Get
+      operationId: product-get
+      parameters:
+        - name: product_type
+          in: query
+          required: true
+          schema:
+            enum:
+              - RAW
+              - MOLASSES
+            type: string
+            default: RAW
+        - name: product_group
+          in: query
+          required: true
+          schema:
+            enum:
+              - RAW
+              - MOLASSES
+            type: string
+            default: RAW
+      responses:
+        '200':
+          description: ''
+  /tasks/task_items/goods_receiving:
+    post:
+      summary: Task Items Goods Receiving
+      description: Task Items Goods Receiving
+      operationId: task-items-goods-receiving
+      responses:
+        '200':
+          description: ''
+  '/tasks/task_items/{task_item_id}/goods_receiving':
+    put:
+      summary: Task Items Goods Receiving Update
+      description: Task Items Goods Receiving Update
+      operationId: task-items-goods-receiving-update
+      parameters:
+        - name: task_item_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  /tasks/task_items/loading:
+    post:
+      summary: Task Items Loading
+      description: Task Items Loading
+      operationId: task-items-loading
+      responses:
+        '200':
+          description: ''
+  /warehouses:
+    get:
+      summary: Warehouses Get
+      description: Warehouses Get
+      operationId: get-warehouses
+      responses:
+        '200':
+          description: ''
+  /goods_issues/recent:
+    get:
+      summary: Recent Goods Issues Get
+      description: Retrieve a list of goods issues within the last 7 days.
+      operationId: recent-goods-issues-get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GI1'
+  /picking/recent:
+    get:
+      summary: Recent Picking Get
+      description: Retrieve a list of picking slip within the last 7 days.
+      operationId: recent-picking-get
+      responses:
+        '200':
+          description: ''
+  /loading_document/recent:
+    get:
+      summary: Recent Loading Document Get
+      description: Retrieve a list of loading document within the last 7 days.
+      operationId: recent-loading-document-get
+      responses:
+        '200':
+          description: ''
+  /generate_qr_code:
+    patch:
+      summary: Generate QR Code
+      description: Generate QR Code for Pallet
+      operationId: generate-qr-code
+      responses:
+        '200':
+          description: ''
+  /received_items_robot:
+    patch:
+      summary: Received Items Robot
+      description: Active and received items by qr code for robot.
+      operationId: received-items-robot
+      responses:
+        '200':
+          description: ''
+components:
+  schemas:
+    GI1:
+      type: object
+      properties:
+        page:
+          type: integer
+        page_size:
+          type: integer
+        total:
+          type: integer
+        total_page:
+          type: integer
+        rows:
+          type: array
+          items:
+            required:
+              - _id
+              - system
+              - goods_issued_no
+              - owner
+              - customer
+              - doc_ref
+              - doc_ref_type
+              - factory
+              - status
+              - remark
+              - items
+              - virtual_bins
+              - total_items
+              - total_picking_qty
+              - available_picking_qty
+              - fulfillment_no
+              - external_load_no
+              - external_order_no
+              - external_status
+              - ref_goods_issued
+              - external_sales_type_code
+              - external_sales_type
+              - external_note
+              - external_load_note
+              - external_deliver_note
+              - external_inv_note
+              - external_agreement_note
+              - dock
+              - createdAt
+              - updatedAt
+              - id
+            type: object
+            properties:
+              _id:
+                type: string
+              system:
+                type: boolean
+              goods_issued_no:
+                type: string
+              owner:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  system:
+                    type: boolean
+                  name:
+                    type: string
+                  code:
+                    type: string
+                  description:
+                    type: string
+                  company:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      system:
+                        type: boolean
+                      code:
+                        type: string
+                      enabled:
+                        type: boolean
+                      company_name:
+                        type: string
+                      company_logo:
+                        type: array
+                        items:
+                          type: string
+                      company_menu_logo:
+                        type: array
+                        items:
+                          type: string
+                      company_favicon:
+                        type: array
+                        items:
+                          type: string
+                      default:
+                        type: boolean
+                      company_addr_street1:
+                        type: string
+                      company_addr_postal_code:
+                        type: string
+                      createdAt:
+                        type: string
+                      updatedAt:
+                        type: string
+                      company_addr_country: { }
+                      company_addr_district: { }
+                      company_addr_province: { }
+                      company_addr_street2: { }
+                      company_addr_subdistrict: { }
+                      company_addr_telephone: { }
+                      company_tax_id: { }
+                      id:
+                        type: string
+                  enable:
+                    type: boolean
+                  createdAt:
+                    type: string
+                  updatedAt:
+                    type: string
+                  external_code:
+                    type: string
+                  external_storage_location_code:
+                    type: string
+                  factory:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      system:
+                        type: boolean
+                      name:
+                        type: string
+                      code:
+                        type: string
+                      address:
+                        type: object
+                        properties:
+                          street_1:
+                            type: string
+                          postal_code:
+                            type: integer
+                          district:
+                            type: string
+                          subdistrict_code:
+                            type: string
+                          province:
+                            type: string
+                          subdistrict:
+                            type: string
+                          district_code:
+                            type: string
+                          province_code:
+                            type: string
+                      enabled:
+                        type: boolean
+                      work_schedule:
+                        type: array
+                        items:
+                          required:
+                            - uid
+                            - name
+                            - effective_start_date
+                            - start_time
+                            - end_time
+                            - active_day
+                          type: object
+                          properties:
+                            uid:
+                              type: string
+                            name:
+                              type: string
+                            effective_start_date:
+                              type: string
+                            start_time:
+                              type: string
+                            end_time:
+                              type: string
+                            active_day:
+                              type: array
+                              items:
+                                type: string
+                            effective_end_date:
+                              type: string
+                      createdAt:
+                        type: string
+                      updatedAt:
+                        type: string
+                      holiday_schedule:
+                        type: array
+                      receive_from_production_flow_type:
+                        type: array
+                        items:
+                          type: string
+                      default_goods_issued_owner: { }
+                      auto_approved_loading:
+                        type: boolean
+                      putaway_destination_mode:
+                        type: array
+                        items:
+                          type: string
+                      default_batch_granule:
+                        type: string
+                      default_batch_plan:
+                        type: string
+                      factory_code:
+                        type: string
+                      cutoff_stock:
+                        type: array
+                        items:
+                          required:
+                            - uid
+                            - product
+                            - mfg_date
+                          type: object
+                          properties:
+                            uid:
+                              type: string
+                            product:
+                              type: string
+                            mfg_date:
+                              type: string
+                      crushing_season:
+                        type: array
+                        items:
+                          required:
+                            - uid
+                            - year
+                            - start_date
+                            - end_date
+                          type: object
+                          properties:
+                            uid:
+                              type: string
+                            year:
+                              type: integer
+                            start_date:
+                              type: string
+                            end_date:
+                              type: string
+                      id:
+                        type: string
+                  is_available_in_production_plan:
+                    type: boolean
+                  is_available_in_sales_owner_switch:
+                    type: boolean
+                  is_available_in_reservation:
+                    type: boolean
+                  id:
+                    type: string
+              customer:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  system:
+                    type: boolean
+                  customer_no:
+                    type: string
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                  type:
+                    type: array
+                    items:
+                      type: string
+                  status:
+                    type: array
+                    items:
+                      type: string
+                  createdAt:
+                    type: string
+                  updatedAt:
+                    type: string
+                  external_customer_no: { }
+                  id:
+                    type: string
+              doc_ref: { }
+              doc_ref_type:
+                type: array
+                items:
+                  type: string
+              factory:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  system:
+                    type: boolean
+                  name:
+                    type: string
+                  code:
+                    type: string
+                  address:
+                    type: object
+                    properties:
+                      street_1:
+                        type: string
+                      postal_code:
+                        type: integer
+                      district:
+                        type: string
+                      subdistrict_code:
+                        type: string
+                      province:
+                        type: string
+                      subdistrict:
+                        type: string
+                      district_code:
+                        type: string
+                      province_code:
+                        type: string
+                  enabled:
+                    type: boolean
+                  work_schedule:
+                    type: array
+                    items:
+                      required:
+                        - uid
+                        - name
+                        - effective_start_date
+                        - start_time
+                        - end_time
+                        - active_day
+                      type: object
+                      properties:
+                        uid:
+                          type: string
+                        name:
+                          type: string
+                        effective_start_date:
+                          type: string
+                        start_time:
+                          type: string
+                        end_time:
+                          type: string
+                        active_day:
+                          type: array
+                          items:
+                            type: string
+                        effective_end_date:
+                          type: string
+                  createdAt:
+                    type: string
+                  updatedAt:
+                    type: string
+                  holiday_schedule:
+                    type: array
+                  receive_from_production_flow_type:
+                    type: array
+                    items:
+                      type: string
+                  default_goods_issued_owner: { }
+                  auto_approved_loading:
+                    type: boolean
+                  putaway_destination_mode:
+                    type: array
+                    items:
+                      type: string
+                  default_batch_granule:
+                    type: string
+                  default_batch_plan:
+                    type: string
+                  factory_code:
+                    type: string
+                  cutoff_stock:
+                    type: array
+                    items:
+                      required:
+                        - uid
+                        - product
+                        - mfg_date
+                      type: object
+                      properties:
+                        uid:
+                          type: string
+                        product:
+                          type: string
+                        mfg_date:
+                          type: string
+                  crushing_season:
+                    type: array
+                    items:
+                      required:
+                        - uid
+                        - year
+                        - start_date
+                        - end_date
+                      type: object
+                      properties:
+                        uid:
+                          type: string
+                        year:
+                          type: integer
+                        start_date:
+                          type: string
+                        end_date:
+                          type: string
+                  id:
+                    type: string
+              status:
+                type: array
+                items:
+                  type: string
+              remark: { }
+              items:
+                type: array
+                items:
+                  required:
+                    - _id
+                    - system
+                    - item_no
+                    - product
+                    - owner_code
+                    - product_name
+                    - sku
+                    - batch_code
+                    - lot_number
+                    - qr_code
+                    - quantity
+                    - item_per_unit
+                    - total_units
+                    - remark
+                    - total_picking_qty
+                    - available_picking_qty
+                    - picking_items
+                    - shipment_no
+                    - external_to_owner_code
+                    - new_lot_number
+                    - new_quantity
+                    - createdAt
+                    - updatedAt
+                    - goods_issued_item_id
+                    - goods_issued
+                    - expiry_date
+                    - mfg_date
+                    - owner
+                    - recording_date
+                    - customer
+                    - id
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                    system:
+                      type: boolean
+                    item_no:
+                      type: integer
+                    product:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        system:
+                          type: boolean
+                        product_name:
+                          type: string
+                        sku:
+                          type: string
+                        category:
+                          type: string
+                        product_type:
+                          type: array
+                          items:
+                            type: string
+                        enabled:
+                          type: boolean
+                        price:
+                          type: integer
+                        cost_price:
+                          type: integer
+                        weight:
+                          type: integer
+                        display_weight:
+                          type: integer
+                        display_weight_unit:
+                          type: array
+                          items:
+                            type: string
+                        shelf_life:
+                          type: integer
+                        width:
+                          type: integer
+                        depth:
+                          type: integer
+                        height:
+                          type: integer
+                        volume:
+                          type: integer
+                        stock_quantity:
+                          type: integer
+                        minimum_stock_level:
+                          type: integer
+                        ean: { }
+                        barcode: { }
+                        tags:
+                          type: array
+                        status:
+                          type: array
+                        uom:
+                          type: string
+                        reject_product: { }
+                        reject_bin: { }
+                        createdAt:
+                          type: string
+                        updatedAt:
+                          type: string
+                        product_group:
+                          type: string
+                        grade: { }
+                        is_icumsa:
+                          type: boolean
+                        pack_size: { }
+                        product_grade:
+                          type: string
+                        product_label:
+                          type: string
+                        inventory_flow_type: { }
+                        qc_criteria:
+                          type: object
+                          properties:
+                            fields:
+                              type: array
+                              items:
+                                required:
+                                  - field
+                                  - label
+                                  - unit
+                                  - input_type
+                                  - criteria
+                                  - threshold
+                                type: object
+                                properties:
+                                  field:
+                                    type: string
+                                  label:
+                                    type: string
+                                  unit:
+                                    type: string
+                                  input_type:
+                                    type: string
+                                  criteria:
+                                    type: string
+                                  threshold:
+                                    type: integer
+                            on_fail:
+                              type: object
+                              properties:
+                                action:
+                                  type: string
+                                product:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: string
+                                    sku:
+                                      type: string
+                        receive_channel:
+                          type: array
+                          items:
+                            required:
+                              - code
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                              additional_data:
+                                type: array
+                                items:
+                                  required:
+                                    - field
+                                    - input_type
+                                    - required
+                                    - unit
+                                  type: object
+                                  properties:
+                                    field:
+                                      type: string
+                                    input_type:
+                                      type: string
+                                    required:
+                                      type: boolean
+                                    unit:
+                                      type: string
+                        id:
+                          type: string
+                    owner_code: { }
+                    product_name:
+                      type: string
+                    sku:
+                      type: string
+                    batch_code:
+                      type: string
+                    lot_number: { }
+                    qr_code: { }
+                    quantity:
+                      type: integer
+                    item_per_unit:
+                      type: integer
+                    total_units:
+                      type: integer
+                    remark: { }
+                    total_picking_qty: { }
+                    available_picking_qty:
+                      type: integer
+                    picking_items:
+                      type: array
+                    shipment_no: { }
+                    external_to_owner_code: { }
+                    new_lot_number:
+                      type: array
+                    new_quantity:
+                      type: array
+                    createdAt:
+                      type: string
+                    updatedAt:
+                      type: string
+                    goods_issued_item_id: { }
+                    goods_issued:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        system:
+                          type: boolean
+                        goods_issued_no:
+                          type: string
+                        owner:
+                          type: string
+                        customer:
+                          type: string
+                        doc_ref: { }
+                        doc_ref_type:
+                          type: array
+                          items:
+                            type: string
+                        factory:
+                          type: string
+                        status:
+                          type: array
+                          items:
+                            type: string
+                        remark: { }
+                        items:
+                          type: array
+                        virtual_bins:
+                          type: array
+                        total_items:
+                          type: integer
+                        total_picking_qty:
+                          type: integer
+                        available_picking_qty:
+                          type: integer
+                        fulfillment_no: { }
+                        external_load_no:
+                          type: string
+                        external_order_no:
+                          type: string
+                        external_status: { }
+                        ref_goods_issued: { }
+                        external_sales_type_code: { }
+                        external_sales_type: { }
+                        external_note: { }
+                        external_load_note: { }
+                        external_deliver_note: { }
+                        external_inv_note: { }
+                        external_agreement_note: { }
+                        dock: { }
+                        createdAt:
+                          type: string
+                        updatedAt:
+                          type: string
+                        id:
+                          type: string
+                    expiry_date:
+                      type: string
+                    mfg_date:
+                      type: string
+                    owner:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        system:
+                          type: boolean
+                        name:
+                          type: string
+                        code:
+                          type: string
+                        description:
+                          type: string
+                        company:
+                          type: string
+                        enable:
+                          type: boolean
+                        createdAt:
+                          type: string
+                        updatedAt:
+                          type: string
+                        external_code:
+                          type: string
+                        external_storage_location_code:
+                          type: string
+                        factory:
+                          type: string
+                        is_available_in_production_plan:
+                          type: boolean
+                        is_available_in_sales_owner_switch:
+                          type: boolean
+                        is_available_in_reservation:
+                          type: boolean
+                        id:
+                          type: string
+                    recording_date:
+                      type: string
+                    customer:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                        system:
+                          type: boolean
+                        customer_no:
+                          type: string
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                        type:
+                          type: array
+                          items:
+                            type: string
+                        status:
+                          type: array
+                          items:
+                            type: string
+                        createdAt:
+                          type: string
+                        updatedAt:
+                          type: string
+                        external_customer_no: { }
+                        id:
+                          type: string
+                    id:
+                      type: string
+              virtual_bins:
+                type: array
+              total_items:
+                type: integer
+              total_picking_qty:
+                type: integer
+              available_picking_qty:
+                type: integer
+              fulfillment_no: { }
+              external_load_no:
+                type: string
+              external_order_no:
+                type: string
+              external_status: { }
+              ref_goods_issued: { }
+              external_sales_type_code: { }
+              external_sales_type: { }
+              external_note: { }
+              external_load_note: { }
+              external_deliver_note: { }
+              external_inv_note: { }
+              external_agreement_note: { }
+              dock: { }
+              createdAt:
+                type: string
+              updatedAt:
+                type: string
+              id:
+                type: string
+              dock_bin:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  system:
+                    type: boolean
+                  name:
+                    type: string
+                  code:
+                    type: string
+                  dock:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      system:
+                        type: boolean
+                      name:
+                        type: string
+                      code:
+                        type: string
+                      enabled:
+                        type: boolean
+                      factory:
+                        type: string
+                      warehouse:
+                        type: string
+                      zone:
+                        type: string
+                      spare_bin_location:
+                        type: string
+                      createdAt:
+                        type: string
+                      updatedAt:
+                        type: string
+                      id:
+                        type: string
+                  factory:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      system:
+                        type: boolean
+                      name:
+                        type: string
+                      code:
+                        type: string
+                      address:
+                        type: object
+                        properties:
+                          street_1:
+                            type: string
+                          postal_code:
+                            type: integer
+                          district:
+                            type: string
+                          subdistrict_code:
+                            type: string
+                          province:
+                            type: string
+                          subdistrict:
+                            type: string
+                          district_code:
+                            type: string
+                          province_code:
+                            type: string
+                      enabled:
+                        type: boolean
+                      work_schedule:
+                        type: array
+                        items:
+                          required:
+                            - uid
+                            - name
+                            - effective_start_date
+                            - start_time
+                            - end_time
+                            - active_day
+                          type: object
+                          properties:
+                            uid:
+                              type: string
+                            name:
+                              type: string
+                            effective_start_date:
+                              type: string
+                            start_time:
+                              type: string
+                            end_time:
+                              type: string
+                            active_day:
+                              type: array
+                              items:
+                                type: string
+                            effective_end_date:
+                              type: string
+                      createdAt:
+                        type: string
+                      updatedAt:
+                        type: string
+                      holiday_schedule:
+                        type: array
+                      receive_from_production_flow_type:
+                        type: array
+                        items:
+                          type: string
+                      default_goods_issued_owner: { }
+                      auto_approved_loading:
+                        type: boolean
+                      putaway_destination_mode:
+                        type: array
+                        items:
+                          type: string
+                      default_batch_granule:
+                        type: string
+                      default_batch_plan:
+                        type: string
+                      factory_code:
+                        type: string
+                      cutoff_stock:
+                        type: array
+                        items:
+                          required:
+                            - uid
+                            - product
+                            - mfg_date
+                          type: object
+                          properties:
+                            uid:
+                              type: string
+                            product:
+                              type: string
+                            mfg_date:
+                              type: string
+                      crushing_season:
+                        type: array
+                        items:
+                          required:
+                            - uid
+                            - year
+                            - start_date
+                            - end_date
+                          type: object
+                          properties:
+                            uid:
+                              type: string
+                            year:
+                              type: integer
+                            start_date:
+                              type: string
+                            end_date:
+                              type: string
+                      id:
+                        type: string
+                  zone:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      system:
+                        type: boolean
+                      name:
+                        type: string
+                      code:
+                        type: string
+                      use_virtual_bin:
+                        type: boolean
+                      zone_type:
+                        type: string
+                      warehouse:
+                        type: string
+                      enabled:
+                        type: boolean
+                      owner: { }
+                      createdAt:
+                        type: string
+                      updatedAt:
+                        type: string
+                      available_volume_capacity:
+                        type: integer
+                      available_weight_capacity:
+                        type: integer
+                      volume_capacity:
+                        type: integer
+                      volume_utilization:
+                        type: integer
+                      weight_capacity:
+                        type: integer
+                      weight_utilization:
+                        type: number
+                      factory:
+                        type: string
+                      id:
+                        type: string
+                  warehouse:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                      system:
+                        type: boolean
+                      name:
+                        type: string
+                      code:
+                        type: string
+                      factory:
+                        type: string
+                      createdAt:
+                        type: string
+                      updatedAt:
+                        type: string
+                      address:
+                        type: object
+                        properties:
+                          street_1:
+                            type: string
+                          postal_code:
+                            type: integer
+                          district:
+                            type: string
+                          subdistrict_code:
+                            type: string
+                          province:
+                            type: string
+                          subdistrict:
+                            type: string
+                          district_code:
+                            type: string
+                          province_code:
+                            type: string
+                      box_per_column:
+                        type: integer
+                      box_per_row:
+                        type: integer
+                      depth:
+                        type: integer
+                      height:
+                        type: integer
+                      width:
+                        type: integer
+                      receiving_zone:
+                        type: string
+                      layout:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                          entity:
+                            type: string
+                          box_per_row:
+                            type: integer
+                          box_per_column:
+                            type: integer
+                          items:
+                            type: array
+                            items:
+                              required:
+                                - id
+                                - name
+                                - entity
+                                - covered_boxes
+                                - items
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                name:
+                                  type: string
+                                entity:
+                                  type: string
+                                covered_boxes:
+                                  type: object
+                                  properties:
+                                    start_row:
+                                      type: integer
+                                    start_column:
+                                      type: integer
+                                    end_row:
+                                      type: integer
+                                    end_column:
+                                      type: integer
+                                items:
+                                  type: array
+                                box_per_row:
+                                  type: integer
+                                box_per_column:
+                                  type: integer
+                          doors:
+                            type: array
+                            items:
+                              required:
+                                - id
+                                - name
+                                - color
+                                - x
+                                - z
+                                - width
+                                - height
+                                - alpha
+                                - type
+                                - isHorizontal
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                name:
+                                  type: string
+                                color:
+                                  type: string
+                                x:
+                                  type: integer
+                                z:
+                                  type: integer
+                                width:
+                                  type: integer
+                                height:
+                                  type: integer
+                                alpha:
+                                  type: number
+                                type:
+                                  type: string
+                                isHorizontal:
+                                  type: boolean
+                          zones:
+                            type: array
+                            items:
+                              required:
+                                - id
+                                - color
+                                - name
+                                - x
+                                - z
+                                - width
+                                - depth
+                                - is_configured
+                                - alpha
+                                - type
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                color:
+                                  type: string
+                                name:
+                                  type: string
+                                x:
+                                  type: number
+                                z:
+                                  type: number
+                                width:
+                                  type: integer
+                                depth:
+                                  type: integer
+                                is_configured:
+                                  type: boolean
+                                alpha:
+                                  type: number
+                                type:
+                                  type: string
+                          bin_locations:
+                            type: array
+                            items:
+                              required:
+                                - id
+                                - color
+                                - name
+                                - x
+                                - z
+                                - width
+                                - depth
+                                - alpha
+                                - type
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                color:
+                                  type: string
+                                name:
+                                  type: string
+                                x:
+                                  type: number
+                                z:
+                                  type: integer
+                                width:
+                                  type: integer
+                                depth:
+                                  type: integer
+                                alpha:
+                                  type: number
+                                type:
+                                  type: string
+                          shelves:
+                            type: array
+                            items:
+                              required:
+                                - id
+                                - color
+                                - name
+                                - width
+                                - depth
+                                - x
+                                - z
+                                - height
+                                - levels
+                                - columns
+                                - skip
+                                - isHorizontal
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                color:
+                                  type: string
+                                name:
+                                  type: string
+                                width:
+                                  type: integer
+                                depth:
+                                  type: integer
+                                x:
+                                  type: integer
+                                z:
+                                  type: integer
+                                height:
+                                  type: integer
+                                levels:
+                                  type: integer
+                                columns:
+                                  type: integer
+                                skip:
+                                  type: array
+                                isHorizontal:
+                                  type: boolean
+                      use_factory_address:
+                        type: boolean
+                      available_volume_capacity:
+                        type: integer
+                      available_weight_capacity:
+                        type: integer
+                      volume_capacity:
+                        type: integer
+                      volume_utilization:
+                        type: integer
+                      weight_capacity:
+                        type: integer
+                      weight_utilization:
+                        type: number
+                      floor_color: { }
+                      grid_size:
+                        type: integer
+                      screen_color: { }
+                      id:
+                        type: string
+                  volume_capacity:
+                    type: integer
+                  weight_capacity:
+                    type: integer
+                  current_volume:
+                    type: integer
+                  current_weight:
+                    type: integer
+                  available_volume:
+                    type: integer
+                  available_weight:
+                    type: integer
+                  enabled:
+                    type: boolean
+                  strategy_type:
+                    type: array
+                    items:
+                      type: string
+                  type:
+                    type: array
+                    items:
+                      type: string
+                  allow_negative_stock:
+                    type: boolean
+                  negative_stock_threshold_value:
+                    type: integer
+                  negative_stock_threshold_type:
+                    type: array
+                    items:
+                      type: string
+                  display_name:
+                    type: string
+                  createdAt:
+                    type: string
+                  updatedAt:
+                    type: string
+                  id:
+                    type: string
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]

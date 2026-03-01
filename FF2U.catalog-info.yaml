@@ -7,5 +7,6 @@ spec:
   type: openapi
   lifecycle: production
   owner: team-a
+  tags: apim
   definition:
     $text: https://raw.githubusercontent.com/huawun/apim_e2e/main/FF2U.openapi.yaml

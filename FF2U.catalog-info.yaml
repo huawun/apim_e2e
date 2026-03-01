@@ -6,6 +6,6 @@ metadata:
 spec:
   type: openapi
   lifecycle: production
-  owner: CNCF
+  owner: team-a
   definition:
     $text: https://raw.githubusercontent.com/huawun/apim_e2e/main/FF2U.openapi.yaml

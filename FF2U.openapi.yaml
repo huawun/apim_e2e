@@ -1,5 +1,6 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
+metadata:
 openapi: 3.0.1
 info:
   title: FF2U

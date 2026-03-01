@@ -1,22 +1,9 @@
-apiVersion: backstage.io/v1alpha1
-kind: API
-metadata:
-metadata:
-  name: ff2u-api
-  description: FF2U Customer API exposed via Azure APIM
-  tags:
-    - azure-apim
-    - rest
-spec:
-  type: openapi
-  lifecycle: production
-  owner: team-a
-  definition: |
 openapi: 3.0.1
 info:
   title: FF2U
-  description: ''
+  description: FF2U warehouse management API for attachments, tasks, bin locations, QR codes, and break pallets.
   version: '1.0'
+  x-backstage-entity-ref: api:default/ff2u
 servers:
   - url: https://mpazu-ffapim-uat.azure-api.net/ff2u-uat/api/v1
 paths:

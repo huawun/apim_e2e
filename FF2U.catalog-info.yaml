@@ -2,7 +2,9 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: ff2u
-  tags: apim
+  tags:
+    - warehouse
+    - apim
   description: FF2U warehouse management API for attachments, tasks, bin locations, QR codes, and break pallets.
 spec:
   type: openapi

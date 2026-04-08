@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: demo-users-api
+  description: "Mockup API demonstrating the Sprint 1 pipeline (P01-P04)"
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - mockup
+    - sprint-1
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: user-profile-backend-team  # TODO: Replace with real team identifier
+  system: user-profile
+  definition:
+    $text: ../spec/demo-users-api.yaml

@@ -1,0 +1,138 @@
+openapi: "3.0.3"
+
+info:
+  title: Demo Users API
+  version: "1.0.0"
+  description: >-
+    Mockup API demonstrating the full Sprint 1 pipeline (P01–P04) for the
+    apex_pilot team. Provides a single GET endpoint returning demo user
+    objects. This specification is ADR-015 compliant and serves as a
+    reusable template for onboarding the 9 User Profile APIs.
+  contact:
+    name: User Profile Backend Team
+    email: user-profile-backend@example.com
+    # TODO: Replace with real team contact email
+
+servers:
+  - url: https://{apim-instance}.azure-api.net
+    description: Azure API Management gateway
+    variables:
+      apim-instance:
+        default: apim-apex-pilot
+        description: >-
+          Name of the APIM instance.
+          TODO: Replace default with your APIM instance name.
+
+security:
+  - bearerAuth: []
+
+paths:
+  /v1/demo-users:
+    get:
+      operationId: listDemoUsers
+      summary: List demo users
+      description: >-
+        Returns a JSON array of DemoUser objects. Requires a valid
+        Entra ID JWT bearer token.
+      tags:
+        - Demo Users
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: A JSON array of demo user objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DemoUser"
+              examples:
+                success:
+                  summary: Successful response with two demo users
+                  value:
+                    - id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                      displayName: "Jane Doe"
+                      email: "jane.doe@example.com"
+                      department: "Engineering"
+                    - id: "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+                      displayName: "John Smith"
+                      email: "john.smith@example.com"
+                      department: "Product Management"
+        "401":
+          description: Unauthorized — access token is missing or invalid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                unauthorized:
+                  summary: Missing or invalid JWT token
+                  value:
+                    error:
+                      code: "UNAUTHORIZED"
+                      message: "Access token is missing or invalid."
+                      details:
+                        - field: "Authorization"
+                          issue: "Bearer token was not provided or failed validation"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        Microsoft Entra ID JWT token. Obtain a token from the Entra ID
+        /oauth2/v2.0/token endpoint using the appropriate app registration
+        client ID and scope.
+
+  schemas:
+    DemoUser:
+      type: object
+      required:
+        - id
+        - displayName
+        - email
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+        displayName:
+          type: string
+          example: "Jane Doe"
+        email:
+          type: string
+          format: email
+          example: "jane.doe@example.com"
+        department:
+          type: string
+          example: "Engineering"
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: string
+              example: "UNAUTHORIZED"
+            message:
+              type: string
+              example: "Access token is missing or invalid."
+            details:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                  issue:
+                    type: string

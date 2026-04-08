@@ -1,0 +1,15 @@
+# =============================================================================
+# Example variable values — Copy to terraform.tfvars and replace placeholders
+# =============================================================================
+# Usage:
+#   cp terraform.tfvars.example terraform.tfvars
+#   # Edit terraform.tfvars with real values
+#   terraform plan
+# =============================================================================
+
+resource_group_name = "rg-apim-pilot-dev"       # TODO: Replace with your resource group name
+apim_instance_name  = "apim-apex-pilot"          # TODO: Replace with your APIM instance name
+backend_url         = "https://demo-users-backend.azurewebsites.net" # TODO: Replace with your backend URL
+tenant_id           = "00000000-0000-0000-0000-000000000000"         # TODO: Replace with your Entra ID tenant ID
+app_id              = "00000000-0000-0000-0000-000000000000"         # TODO: Replace with your app registration client ID
+issuer_url          = "https://sts.windows.net/00000000-0000-0000-0000-000000000000/" # TODO: Replace with your issuer URL

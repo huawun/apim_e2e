@@ -1,0 +1,109 @@
+# Deliberately non-compliant OpenAPI spec — test fixture
+# This file is missing the bearerAuth security scheme to verify that
+# the Spectral ruleset (adr015-bearer-auth) catches the violation.
+# Used by Task 3.3 and the demo-script "what can go wrong" section.
+
+openapi: "3.0.3"
+
+info:
+  title: Demo Users API (Non-Compliant)
+  version: "1.0.0"
+  description: >-
+    Deliberately non-compliant variant used to demonstrate Spectral
+    linting failures. Missing the bearerAuth security scheme.
+  contact:
+    name: User Profile Backend Team
+    email: user-profile-backend@example.com
+
+servers:
+  - url: https://apim-apex-pilot.azure-api.net
+
+paths:
+  /v1/demo-users:
+    get:
+      operationId: listDemoUsers
+      summary: List demo users
+      description: Returns a JSON array of DemoUser objects.
+      tags:
+        - Demo Users
+      responses:
+        "200":
+          description: A JSON array of demo user objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DemoUser"
+              examples:
+                success:
+                  summary: Successful response
+                  value:
+                    - id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                      displayName: "Jane Doe"
+                      email: "jane.doe@example.com"
+                      department: "Engineering"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                unauthorized:
+                  summary: Missing or invalid JWT token
+                  value:
+                    error:
+                      code: "UNAUTHORIZED"
+                      message: "Access token is missing or invalid."
+                      details:
+                        - field: "Authorization"
+                          issue: "Bearer token was not provided"
+
+components:
+  # NOTE: securitySchemes section is deliberately MISSING
+  # This should trigger the adr015-bearer-auth rule.
+
+  schemas:
+    DemoUser:
+      type: object
+      required:
+        - id
+        - displayName
+        - email
+      properties:
+        id:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+        email:
+          type: string
+          format: email
+        department:
+          type: string
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                  issue:
+                    type: string
